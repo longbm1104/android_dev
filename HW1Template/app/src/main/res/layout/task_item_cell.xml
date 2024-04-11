@@ -10,21 +10,46 @@
 
     <!-- TextView for displaying the task title.
          DO NOT underestimate the importance of this view. It’s what the user sees first for each task. -->
+
+    <!-- ImageView to mark the task as done or to delete it.
+         This MUST be interactive. Implement the necessary logic in TaskItemAdapter.kt for user actions. -->
+
     <TextView
         android:id="@+id/tvTaskTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="64dp"
+        android:text="Place Holder"
+        android:textColor="#030303"
+        android:textSize="18sp" />
 
-    <!-- ImageView to mark the task as done or to delete it.
-         This MUST be interactive. Implement the necessary logic in TaskItemAdapter.kt for user actions. -->
+    <ImageView
+        android:id="@+id/ivUncheckAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="351dp"
+        android:contentDescription="Uncheck box"
+        android:src="@drawable/uncheck_24" />
+
+    <TextView
+        android:id="@+id/tvTaskTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="233dp"
+        android:text="Place Holder"
+        android:textColor="#030303"
+        android:textSize="18sp" />
+
     <ImageView
         android:id="@+id/ivTaskAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_action"
-        android:contentDescription="@string/action_description" />
+        android:layout_marginEnd="20dp"
+        android:contentDescription="Delete Action"
+        android:src="@drawable/delete_24" />
 
 </RelativeLayout>

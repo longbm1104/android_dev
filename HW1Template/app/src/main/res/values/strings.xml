@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">HW1-Template</string>
+    <string name="add_new_task">New Task</string>
+    <string name="task_title">Name</string>
+    <string name="save">Save</string>
+    <string name="task_desc">Description</string>
+    <string name="selectTime">Select Time</string>
 </resources>

@@ -5,35 +5,37 @@
 
 <!-- RelativeLayout: Allows you to position your UI elements relative to each other or to the parent container.
 Elements can be aligned on any side of the view and can overlap. This layout is flexible and useful for complex designs.-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#E9DDFF"
     tools:context=".MainActivity">
 
     <!-- RecyclerView is CRUCIAL here. It displays the list of tasks.
          You MUST set the layout manager and adapter in MainActivity.kt.
          If you neglect this, your app will NOT display any tasks. It’s imperative to bind data correctly. -->
-    <RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/task_item_cell"
-        android:descendantFocusability="blocksDescendants" />
+        android:descendantFocusability="blocksDescendants"
+        tools:listitem="@layout/task_item_cell" />
 
     <!-- FloatingActionButton: This is NOT just a decorative element.
          It’s essential for adding new tasks. When clicked, it MUST navigate to NewTaskSheet.kt.
          Failure to implement this functionality will result in an incomplete application flow. -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabNewTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        android:contentDescription="@string/add_new_task" />
+        android:text="New Task"
+        app:icon="@drawable/ic_add"
+        app:iconTint="#F721005D" />
 
 </RelativeLayout>
 
