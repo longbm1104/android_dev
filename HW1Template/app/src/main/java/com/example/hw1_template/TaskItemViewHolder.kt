@@ -4,8 +4,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 // TaskItemViewHolder: Holds the view for each task item in the list.
 // VERY IMPORTANT: This class binds individual views in the RecyclerView to your data.
@@ -14,7 +16,7 @@ class TaskItemViewHolder(
     private val taskItemClickListener: TaskItemClickListener
 ) : RecyclerView.ViewHolder(itemView) {
     // TODO: Initialize your task item views, like TextView for the title, CheckBox for status, etc.
-    val timeFormat = SimpleDateFormat("HH:mm")
+    val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
     var tvTaskTitle: TextView
     var tvTime: TextView
     var ivCompleteTask: ImageView
@@ -34,9 +36,6 @@ class TaskItemViewHolder(
 
         ivCompleteTask.setImageResource(taskItem.imageResource())
 
-//        binding.complete.setImageResource(taskItem.imageResource())
-
-
 
         ivCompleteTask.setOnClickListener {
             taskItemClickListener.completeTask(taskItem.uuid)
@@ -45,7 +44,11 @@ class TaskItemViewHolder(
         itemCell.setOnClickListener {
             taskItemClickListener.onItemClick(taskItem.uuid)
         }
-//
+
+        ivDeleteTask.setOnClickListener {
+            taskItemClickListener.onItemDelete(taskItem.uuid)
+        }
+
         if (taskItem.dueTime != null) {
             tvTime.text = timeFormat.format(taskItem.dueTime)
         } else {

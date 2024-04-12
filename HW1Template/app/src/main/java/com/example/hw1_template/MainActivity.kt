@@ -3,6 +3,7 @@ package com.example.hw1_template
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,16 +19,12 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     // onCreate: Critical for initializing the activity and setting up the UI components.
 
-//    private lateinit var binding: ActivityMainBinding
-    private lateinit var taskItem: TaskItem
     private lateinit var recyclerView: RecyclerView
     private lateinit var taskViewModel: TaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
@@ -36,14 +33,10 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         recyclerView = findViewById(R.id.rvTasks)
         // TaskItemAdapter is your custom adapter for the RecyclerView. You need to create this file.
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-//        recyclerView.adapter = TaskItemAdapter(emptyList())// TODO: Initialize your TaskItemAdapter with data
 
         findViewById<ExtendedFloatingActionButton>(R.id.newTaskBtn).setOnClickListener{
             NewTaskSheet(null).show(supportFragmentManager, "taskSheet")
         }
-//        binding.newTaskBtn.setOnClickListener{
-//            NewTaskSheet().show(supportFragmentManager, "new task sheet")
-//        }
         taskViewModel.taskItemsList.observe(this) {
             recyclerView.adapter = TaskItemAdapter(it, this)
         }
@@ -58,6 +51,14 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     override fun completeTask(taskId: UUID) {
         taskViewModel.setCompleted(taskId)
+    }
+
+    override fun onItemDelete(taskId: UUID) {
+        if (taskViewModel.deleteItem(taskId)) {
+            Toast.makeText(this, "Item Deleted Successfully", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Item Deleted unsuccessfully", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

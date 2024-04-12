@@ -36,7 +36,7 @@ class TaskViewModel : ViewModel() {
         }!!
         task.taskName = name
         task.taskDesc = description
-//        task.dueTime = dueTime
+        task.dueTime = dueTime
 
         taskItemsList.postValue(list)
     }
@@ -48,12 +48,23 @@ class TaskViewModel : ViewModel() {
         val task = list!!.find{
             it.uuid == taskId
         }!!
-//        if (task.completeDate == null)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                task.completeDate = LocalDate.now()
-//            }
         task.isComplete = true
 
         taskItemsList.postValue(list)
+    }
+
+    fun deleteItem(
+        taskId: UUID
+    ) : Boolean{
+        val list = taskItemsList.value
+        val task = list!!.find{
+            it.uuid == taskId
+        }!!
+
+        var isRemoved = list.remove(task)
+
+        taskItemsList.postValue(list)
+
+        return isRemoved
     }
 }

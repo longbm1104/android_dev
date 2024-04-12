@@ -1,5 +1,6 @@
 package com.example.hw1_template
 
+import java.time.LocalTime
 import java.util.UUID
 
 // TaskItem: Represents the data structure for a task in your to-do list.
@@ -7,7 +8,7 @@ import java.util.UUID
 data class TaskItem(
     var taskName: String = "",
     var taskDesc: String = "",
-    var dueTime: String? = null,
+    var dueTime: LocalTime?,
     var isComplete: Boolean = false,
     var uuid: UUID = UUID.randomUUID()
 ) {

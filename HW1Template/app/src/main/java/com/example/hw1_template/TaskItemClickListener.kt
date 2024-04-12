@@ -8,5 +8,7 @@ import java.util.UUID
 interface TaskItemClickListener {
     fun onItemClick(taskId: UUID)
     fun completeTask(taskId: UUID)
+
+    fun onItemDelete(taskId: UUID)
     // Add more methods as needed, like onItemDelete, onItemEdit, etc.
 }
