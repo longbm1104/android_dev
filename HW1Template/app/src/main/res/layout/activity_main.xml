@@ -27,7 +27,7 @@ Elements can be aligned on any side of the view and can overlap. This layout is 
          It’s essential for adding new tasks. When clicked, it MUST navigate to NewTaskSheet.kt.
          Failure to implement this functionality will result in an incomplete application flow. -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabNewTask"
+        android:id="@+id/newTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

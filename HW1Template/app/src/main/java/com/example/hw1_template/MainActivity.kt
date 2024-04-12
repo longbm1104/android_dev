@@ -1,32 +1,65 @@
 package com.example.hw1_template
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+//import com.example.hw1_template.databinding.ActivityMainBinding
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.UUID
 
 // MainActivity: The heart of your application's UI.
 // This class should coordinate the main user interactions and screen transitions.
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     // onCreate: Critical for initializing the activity and setting up the UI components.
+
+//    private lateinit var binding: ActivityMainBinding
+    private lateinit var taskItem: TaskItem
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var taskViewModel: TaskViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+
+        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
         // RecyclerView setup: Essential for displaying a list of items.
         // You MUST properly initialize and configure your RecyclerView and its adapter.
-        val recyclerView = findViewById<RecyclerView>(R.id.rvTasks)
+        recyclerView = findViewById(R.id.rvTasks)
         // TaskItemAdapter is your custom adapter for the RecyclerView. You need to create this file.
-        recyclerView.adapter = // TODO: Initialize your TaskItemAdapter with data
+        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+//        recyclerView.adapter = TaskItemAdapter(emptyList())// TODO: Initialize your TaskItemAdapter with data
 
-        // FloatingActionButton: Triggers the creation of new tasks.
-        // The onClickListener here is vital for handling user actions to add new tasks.
-        val fabNewTask = findViewById<FloatingActionButton>(R.id.fabNewTask)
-        fabNewTask.setOnClickListener {
-            // TODO: Implement the logic to show NewTaskSheet (you need to create this Activity/Fragment)
+        findViewById<ExtendedFloatingActionButton>(R.id.newTaskBtn).setOnClickListener{
+            NewTaskSheet(null).show(supportFragmentManager, "taskSheet")
+        }
+//        binding.newTaskBtn.setOnClickListener{
+//            NewTaskSheet().show(supportFragmentManager, "new task sheet")
+//        }
+        taskViewModel.taskItemsList.observe(this) {
+            recyclerView.adapter = TaskItemAdapter(it, this)
         }
     }
+
+    override fun onItemClick(taskId: UUID) {
+        var taskItem = taskViewModel.taskItemsList.value!!.find{
+            it.uuid == taskId
+        }
+        NewTaskSheet(taskItem).show(supportFragmentManager, "taskSheet")
+    }
+
+    override fun completeTask(taskId: UUID) {
+        taskViewModel.setCompleted(taskId)
+    }
+}
 
     // Instructions:
     // 1. Create NewTaskSheet.kt for handling the creation of new tasks.
