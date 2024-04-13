@@ -11,21 +11,40 @@ Elements can be aligned on any side of the view and can overlap. This layout is 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#E9DDFF"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <!-- RecyclerView is CRUCIAL here. It displays the list of tasks.
          You MUST set the layout manager and adapter in MainActivity.kt.
          If you neglect this, your app will NOT display any tasks. It’s imperative to bind data correctly. -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTasks"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        tools:listitem="@layout/task_item_cell" />
+        android:layout_height="wrap_content"
+        android:background="#6750A4">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:text="TodoListTutorial"
+            android:textColor="#FDFCFC"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <!-- FloatingActionButton: This is NOT just a decorative element.
          It’s essential for adding new tasks. When clicked, it MUST navigate to NewTaskSheet.kt.
          Failure to implement this functionality will result in an incomplete application flow. -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        tools:listitem="@layout/task_item_cell"
+        android:layout_below="@id/linearLayout"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/newTaskBtn"
         android:layout_width="wrap_content"
@@ -34,8 +53,10 @@ Elements can be aligned on any side of the view and can overlap. This layout is 
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:text="New Task"
+        android:textColor="#FEF7FE"
+        app:backgroundTint="#6750A4"
         app:icon="@drawable/ic_add"
-        app:iconTint="#F721005D" />
+        app:iconTint="#FEF7FE" />
 
 </RelativeLayout>
 

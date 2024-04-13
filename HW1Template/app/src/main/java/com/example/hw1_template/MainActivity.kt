@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         }
     }
 
-    override fun onItemClick(taskId: UUID) {
+    override fun onItemEdit(taskId: UUID) {
         var taskItem = taskViewModel.taskItemsList.value!!.find{
             it.uuid == taskId
         }

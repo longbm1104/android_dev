@@ -42,7 +42,7 @@ class TaskItemViewHolder(
         }
 
         itemCell.setOnClickListener {
-            taskItemClickListener.onItemClick(taskItem.uuid)
+            taskItemClickListener.onItemEdit(taskItem.uuid)
         }
 
         ivDeleteTask.setOnClickListener {
